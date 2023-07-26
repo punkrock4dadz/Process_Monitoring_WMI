@@ -19,11 +19,31 @@ The Windows Management Instrumentation (WMI) API gives programmers the ability t
 - <b>Windows 11</b> (22H2)
 
 <h2>Program walk-through:</h2>
-Let’s begin by writing a very simple monitoring script that provides the basic process information and then build on that to determine the enabled privileges. This code was adapted from the Python WMI page (http://timgolden.me.uk/python/wmi/tutorial.html). Note that in order to capture information about high-privilege processes created by SYSTEM, for example, you’ll need to run your monitoring script as Administrator. Start by adding the following code to process_monitor.py:
+Let’s begin by writing a very simple monitoring script that provides the basic process information and then build on that to determine the enabled privileges. This code was adapted from the Python WMI page (http://timgolden.me.uk/python/wmi/tutorial.html). Note that in order to capture information about high-privilege processes created by SYSTEM, for example, you’ll need to run your monitoring script as Administrator.
+
+<h2>Usage Example:</h2>
+
+  C:\Users\tim\work> python WMI.py
+    "Calculator.exe",
+     20200624083538.964492-240 ,
+
+C:\Program Files\WindowsApps\Microsoft.WindowsCalculator\Calculator.exe,
+1204 ,
+10312 ,
+('DESKTOP-CC91N7I', 0, 'tim') ,
+N/A
+
+notepad ,
+20200624083340.325593-240 ,
+C:\Windows\system32\notepad.exe,
+13184 ,
+12788 ,
+('DESKTOP-CC91N7I', 0, 'tim') ,
+N/A
 
 <p align="center">
-Launch the utility: <br/>
-<img src="" height="80%" width="80%" alt="Process Monitor w/ WMI Steps"/>
+TODO: <br/>
+Windows Token Privileges
 <br />
 
 <!--
