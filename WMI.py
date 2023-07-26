@@ -9,16 +9,16 @@ def get_process_privileges(pid):
     try:
       hproc = win32api.OpenProcess( 
                       win32con.PROCESS_QUERY_INFORMATION, False, pid
-                      )
-                htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY) 
-                privs = win32security.GetTokenInformation( 
+                      ) # We use the process ID to obtain a handle to the target process
+                htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY) # Request the token information for that process
+                privs = win32security.GetTokenInformation( # By sending the win32security.TokenPrivileges structure.
                     htok,win32security.TokenPrivileges
-                    )
+                    ) # The function call returns a list of tuples, where the first member of the tuple is the privilege and the second member describes whether the privilege is enabled or not
                 privileges = ''
                 for priv_id, flags in privs:
-                    if flags == (win32security.SE_PRIVILEGE_ENABLED | 
+                    if flags == (win32security.SE_PRIVILEGE_ENABLED | # Because we're concerned only with the enabled ones, we first check for the enabled bits.
                             win32security.SE_PRIVILEGE_ENABLED_BY_DEFAULT):
-                        privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|' 
+                        privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|' # And then lookup the human readable name for that priv.
             except Exception:
                 privileges = get_process_privileges(pid)
         
